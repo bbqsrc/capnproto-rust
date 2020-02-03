@@ -24,7 +24,7 @@ quickcheck = { version = "0.9", optional = true }
 quickcheck = "0.9"
 
 [features]
-default = ["std"]
+default = []
 std = []
 rpc_try = []
 

@@ -25,7 +25,42 @@
 
 use core::convert::TryInto;
 #[cfg(feature = "std")]
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
+
+#[cfg(not(feature = "std"))]
+pub mod io {
+    #[derive(Debug, Copy, Clone)]
+    pub enum Error {
+    }
+
+    pub type Result<T> = ::core::result::Result<T, Error>;
+
+    pub trait Read {
+        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()>;
+    }
+
+    pub trait Write {
+        fn write_all(&mut self, buf: &[u8]) -> Result<()>;
+    }
+
+    impl Read for &[u8] {
+        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()> {
+            buf.copy_from_slice(self);
+            Ok(())
+        }
+    }
+
+    impl Write for &mut [u8] {
+        fn write_all(&mut self, buf: &[u8]) -> Result<()> {
+            self.copy_from_slice(buf);
+            Ok(())
+        }
+    }
+}
+
+#[cfg(not(feature = "std"))]
+use self::io::{Read, Write};
+
 use alloc::{vec::Vec, vec, format};
 
 use crate::message;
@@ -62,7 +97,6 @@ impl <'a> message::ReaderSegments for SliceSegments<'a> {
 ///
 /// ALIGNMENT: If the "unaligned" feature is enabled, then there are no alignment requirements on `slice`.
 /// Otherwise, `slice` must be 8-byte aligned (attempts to read the message will trigger errors).
-#[cfg(feature = "std")]
 pub fn read_message_from_flat_slice<'a>(slice: &mut &'a [u8],
                                         options: message::ReaderOptions)
                                         -> Result<message::Reader<SliceSegments<'a>>> {
@@ -180,7 +214,6 @@ impl SegmentLengthsBuilder {
 /// Reads a serialized message from a stream with the provided options.
 ///
 /// For optimal performance, `read` should be a buffered reader type.
-#[cfg(feature = "std")]
 pub fn read_message<R>(mut read: R, options: message::ReaderOptions) -> Result<message::Reader<OwnedSegments>>
 where R: Read {
     let owned_segments_builder = read_segment_table(&mut read, options)?;
@@ -192,7 +225,6 @@ where R: Read {
 ///
 /// The segment table format for streams is defined in the Cap'n Proto
 /// [encoding spec](https://capnproto.org/encoding.html)
-#[cfg(feature = "std")]
 fn read_segment_table<R>(read: &mut R,
                          options: message::ReaderOptions)
                          -> Result<SegmentLengthsBuilder>
@@ -244,7 +276,6 @@ fn read_segment_table<R>(read: &mut R,
 }
 
 /// Reads segments from `read`.
-#[cfg(feature = "std")]
 fn read_segments<R>(read: &mut R,
                     mut owned_segments: OwnedSegments,
                     options: message::ReaderOptions)
@@ -255,21 +286,18 @@ where R: Read {
 }
 
 /// Constructs a flat vector containing the entire message.
-#[cfg(feature = "std")]
 pub fn write_message_to_words<A>(message: &message::Builder<A>) -> Vec<u8>
     where A: message::Allocator
 {
     flatten_segments(&*message.get_segments_for_output())
 }
 
-#[cfg(feature = "std")]
 pub fn write_message_segments_to_words<R>(message: &R) -> Vec<u8>
     where R: message::ReaderSegments
 {
     flatten_segments(message)
 }
 
-#[cfg(feature = "std")]
 fn flatten_segments<R: message::ReaderSegments + ?Sized>(segments: &R) -> Vec<u8> {
     let word_count = compute_serialized_size(segments);
     let segment_count = segments.len();
@@ -295,23 +323,20 @@ fn flatten_segments<R: message::ReaderSegments + ?Sized>(segments: &R) -> Vec<u8
 ///
 /// For optimal performance, `write` should be a buffered writer. `flush` will not be called on
 /// the writer.
-#[cfg(feature = "std")]
-pub fn write_message<W, A>(write: &mut W, message: &message::Builder<A>) -> ::std::io::Result<()>
+pub fn write_message<W, A>(write: &mut W, message: &message::Builder<A>) -> io::Result<()>
  where W: Write, A: message::Allocator {
     let segments = message.get_segments_for_output();
     write_segment_table(write, &segments)?;
     write_segments(write, &segments)
 }
 
-#[cfg(feature = "std")]
-pub fn write_message_segments<W, R>(write: &mut W, segments: &R) -> ::std::io::Result<()>
+pub fn write_message_segments<W, R>(write: &mut W, segments: &R) -> io::Result<()>
  where W: Write, R: message::ReaderSegments {
     write_segment_table_internal(write, segments)?;
     write_segments(write, segments)
 }
 
-#[cfg(feature = "std")]
-fn write_segment_table<W>(write: &mut W, segments: &[&[u8]]) -> ::std::io::Result<()>
+fn write_segment_table<W>(write: &mut W, segments: &[&[u8]]) -> io::Result<()>
 where W: Write {
     write_segment_table_internal(write, segments)
 }
@@ -319,8 +344,7 @@ where W: Write {
 /// Writes a segment table to `write`.
 ///
 /// `segments` must contain at least one segment.
-#[cfg(feature = "std")]
-fn write_segment_table_internal<W, R>(write: &mut W, segments: &R) -> ::std::io::Result<()>
+fn write_segment_table_internal<W, R>(write: &mut W, segments: &R) -> io::Result<()>
 where W: Write, R: message::ReaderSegments + ?Sized {
     let mut buf: [u8; 8] = [0; 8];
     let segment_count = segments.len();
@@ -356,8 +380,7 @@ where W: Write, R: message::ReaderSegments + ?Sized {
 }
 
 /// Writes segments to `write`.
-#[cfg(feature = "std")]
-fn write_segments<W, R: message::ReaderSegments + ?Sized>(write: &mut W, segments: &R) -> ::std::io::Result<()>
+fn write_segments<W, R: message::ReaderSegments + ?Sized>(write: &mut W, segments: &R) -> io::Result<()>
 where W: Write {
     for i in 0.. {
         if let Some(segment) = segments.get_segment(i) {

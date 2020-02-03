@@ -216,6 +216,13 @@ impl ::core::convert::From<::std::io::Error> for Error {
     }
 }
 
+#[cfg(not(feature = "std"))]
+impl ::core::convert::From<crate::serialize::io::Error> for Error {
+    fn from(err: crate::serialize::io::Error) -> Error {
+        Error { description: format!("{:?}", err), kind: ErrorKind::Failed }
+    }
+}
+
 impl ::core::convert::From<::alloc::string::FromUtf8Error> for Error {
     fn from(err: ::alloc::string::FromUtf8Error) -> Error {
         Error::failed(format!("{}", err))
