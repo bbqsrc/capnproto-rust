@@ -23,8 +23,10 @@
 //! [standard stream framing](https://capnproto.org/encoding.html#serialization-over-a-stream),
 //! where each message is preceded by a segment table indicating the size of its segments.
 
-use std::convert::TryInto;
+use core::convert::TryInto;
+#[cfg(feature = "std")]
 use std::io::{Read, Write};
+use alloc::{vec::Vec, vec, format};
 
 use crate::message;
 use crate::private::units::BYTES_PER_WORD;
@@ -60,6 +62,7 @@ impl <'a> message::ReaderSegments for SliceSegments<'a> {
 ///
 /// ALIGNMENT: If the "unaligned" feature is enabled, then there are no alignment requirements on `slice`.
 /// Otherwise, `slice` must be 8-byte aligned (attempts to read the message will trigger errors).
+#[cfg(feature = "std")]
 pub fn read_message_from_flat_slice<'a>(slice: &mut &'a [u8],
                                         options: message::ReaderOptions)
                                         -> Result<message::Reader<SliceSegments<'a>>> {
@@ -91,14 +94,14 @@ pub struct OwnedSegments {
     owned_space: Vec<crate::Word>,
 }
 
-impl std::ops::Deref for OwnedSegments {
+impl core::ops::Deref for OwnedSegments {
     type Target = [u8];
     fn deref(&self) -> &[u8] {
         crate::Word::words_to_bytes(&self.owned_space[..])
     }
 }
 
-impl std::ops::DerefMut for OwnedSegments {
+impl core::ops::DerefMut for OwnedSegments {
     fn deref_mut(&mut self) -> &mut [u8] {
         crate::Word::words_to_bytes_mut(&mut self.owned_space[..])
     }
@@ -177,6 +180,7 @@ impl SegmentLengthsBuilder {
 /// Reads a serialized message from a stream with the provided options.
 ///
 /// For optimal performance, `read` should be a buffered reader type.
+#[cfg(feature = "std")]
 pub fn read_message<R>(mut read: R, options: message::ReaderOptions) -> Result<message::Reader<OwnedSegments>>
 where R: Read {
     let owned_segments_builder = read_segment_table(&mut read, options)?;
@@ -188,6 +192,7 @@ where R: Read {
 ///
 /// The segment table format for streams is defined in the Cap'n Proto
 /// [encoding spec](https://capnproto.org/encoding.html)
+#[cfg(feature = "std")]
 fn read_segment_table<R>(read: &mut R,
                          options: message::ReaderOptions)
                          -> Result<SegmentLengthsBuilder>
@@ -239,6 +244,7 @@ fn read_segment_table<R>(read: &mut R,
 }
 
 /// Reads segments from `read`.
+#[cfg(feature = "std")]
 fn read_segments<R>(read: &mut R,
                     mut owned_segments: OwnedSegments,
                     options: message::ReaderOptions)
@@ -249,18 +255,21 @@ where R: Read {
 }
 
 /// Constructs a flat vector containing the entire message.
+#[cfg(feature = "std")]
 pub fn write_message_to_words<A>(message: &message::Builder<A>) -> Vec<u8>
     where A: message::Allocator
 {
     flatten_segments(&*message.get_segments_for_output())
 }
 
+#[cfg(feature = "std")]
 pub fn write_message_segments_to_words<R>(message: &R) -> Vec<u8>
     where R: message::ReaderSegments
 {
     flatten_segments(message)
 }
 
+#[cfg(feature = "std")]
 fn flatten_segments<R: message::ReaderSegments + ?Sized>(segments: &R) -> Vec<u8> {
     let word_count = compute_serialized_size(segments);
     let segment_count = segments.len();
@@ -286,6 +295,7 @@ fn flatten_segments<R: message::ReaderSegments + ?Sized>(segments: &R) -> Vec<u8
 ///
 /// For optimal performance, `write` should be a buffered writer. `flush` will not be called on
 /// the writer.
+#[cfg(feature = "std")]
 pub fn write_message<W, A>(write: &mut W, message: &message::Builder<A>) -> ::std::io::Result<()>
  where W: Write, A: message::Allocator {
     let segments = message.get_segments_for_output();
@@ -293,12 +303,14 @@ pub fn write_message<W, A>(write: &mut W, message: &message::Builder<A>) -> ::st
     write_segments(write, &segments)
 }
 
+#[cfg(feature = "std")]
 pub fn write_message_segments<W, R>(write: &mut W, segments: &R) -> ::std::io::Result<()>
  where W: Write, R: message::ReaderSegments {
     write_segment_table_internal(write, segments)?;
     write_segments(write, segments)
 }
 
+#[cfg(feature = "std")]
 fn write_segment_table<W>(write: &mut W, segments: &[&[u8]]) -> ::std::io::Result<()>
 where W: Write {
     write_segment_table_internal(write, segments)
@@ -307,6 +319,7 @@ where W: Write {
 /// Writes a segment table to `write`.
 ///
 /// `segments` must contain at least one segment.
+#[cfg(feature = "std")]
 fn write_segment_table_internal<W, R>(write: &mut W, segments: &R) -> ::std::io::Result<()>
 where W: Write, R: message::ReaderSegments + ?Sized {
     let mut buf: [u8; 8] = [0; 8];
@@ -343,6 +356,7 @@ where W: Write, R: message::ReaderSegments + ?Sized {
 }
 
 /// Writes segments to `write`.
+#[cfg(feature = "std")]
 fn write_segments<W, R: message::ReaderSegments + ?Sized>(write: &mut W, segments: &R) -> ::std::io::Result<()>
 where W: Write {
     for i in 0.. {
@@ -373,7 +387,7 @@ pub fn compute_serialized_size_in_words<A>(message: &crate::message::Builder<A>)
     compute_serialized_size(&message.get_segments_for_output())
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "std"))]
 pub mod test {
 
     use std::io::{Cursor, Write};

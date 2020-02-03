@@ -22,19 +22,22 @@
 //! Reading and writing of messages using the
 //! [packed stream encoding](https://capnproto.org/encoding.html#packing).
 
+#[cfg(feature = "std")]
 use std::{io, mem, ptr, slice};
+#[cfg(feature = "std")]
 use std::io::{Read, BufRead, Write};
 
 use crate::serialize;
 use crate::Result;
 use crate::message;
 
+#[cfg(feature = "std")]
 struct PackedRead<R> where R: BufRead {
     inner: R,
 }
 
+#[cfg(feature = "std")]
 impl <R> PackedRead<R> where R: BufRead {
-
     fn get_read_buffer(&mut self) -> io::Result<(*const u8, *const u8)> {
         let buf = self.inner.fill_buf()?;
         Ok((buf.as_ptr(), buf.as_ptr().wrapping_offset(buf.len() as isize)))
@@ -43,7 +46,7 @@ impl <R> PackedRead<R> where R: BufRead {
 
 #[inline]
 fn ptr_sub<T>(p1: *const T, p2: *const T) -> usize {
-    (p1 as usize - p2 as usize) / mem::size_of::<T>()
+    (p1 as usize - p2 as usize) / ::core::mem::size_of::<T>()
 }
 
 macro_rules! refresh_buffer(
@@ -64,6 +67,7 @@ macro_rules! refresh_buffer(
         );
     );
 
+#[cfg(feature = "std")]
 impl <R> Read for PackedRead<R> where R: BufRead {
 
     fn read(&mut self, out_buf: &mut [u8]) -> io::Result<usize> {
@@ -207,6 +211,7 @@ impl <R> Read for PackedRead<R> where R: BufRead {
     }
 }
 
+#[cfg(feature = "std")]
 /// Reads a packed message from a stream using the provided options.
 pub fn read_message<R>(read: &mut R,
                        options: message::ReaderOptions)
@@ -217,10 +222,12 @@ pub fn read_message<R>(read: &mut R,
     serialize::read_message(&mut packed_read, options)
 }
 
+#[cfg(feature = "std")]
 struct PackedWrite<W> where W: Write {
     inner: W,
 }
 
+#[cfg(feature = "std")]
 impl <W> Write for PackedWrite<W> where W: Write {
     fn write(&mut self, in_buf: &[u8]) -> io::Result<usize> {
         unsafe {
@@ -356,6 +363,7 @@ impl <W> Write for PackedWrite<W> where W: Write {
 }
 
 /// Writes a packed message to a stream.
+#[cfg(feature = "std")]
 pub fn write_message<W, A>(write: &mut W, message: &crate::message::Builder<A>) -> io::Result<()>
     where W: Write, A: crate::message::Allocator
 {
@@ -363,7 +371,7 @@ pub fn write_message<W, A>(write: &mut W, message: &crate::message::Builder<A>) 
     serialize::write_message(&mut packed_write, message)
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "std"))]
 mod tests {
     use std::io::{Write, Read};
 

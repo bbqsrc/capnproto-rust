@@ -21,7 +21,7 @@
 
 //! Untyped root container for a Cap'n Proto value.
 
-use std::convert::From;
+use core::convert::From;
 
 use crate::any_pointer;
 use crate::private::arena::{BuilderArenaImpl, ReaderArenaImpl, BuilderArena, ReaderArena};
@@ -29,6 +29,7 @@ use crate::private::layout;
 use crate::private::units::BYTES_PER_WORD;
 use crate::traits::{FromPointerReader, FromPointerBuilder, SetPointerBuilder, Owned};
 use crate::{OutputSegments, Result};
+use alloc::{vec::Vec};
 
 /// Options controlling how data is read.
 #[derive(Clone, Copy, Debug)]
@@ -183,7 +184,7 @@ impl <S> Reader<S> where S: ReaderSegments {
 
         let pointer_reader = layout::PointerReader::get_root(
             &self.arena, 0, segment_start, self.nesting_limit)?;
-        let read_head = ::std::cell::Cell::new(unsafe {segment_start.offset(BYTES_PER_WORD as isize)});
+        let read_head = ::core::cell::Cell::new(unsafe {segment_start.offset(BYTES_PER_WORD as isize)});
         let root_is_canonical = pointer_reader.is_canonical(&read_head)?;
         let all_words_consumed =
             (read_head.get() as usize - segment_start as usize) / BYTES_PER_WORD == seg_len as usize;
@@ -216,7 +217,7 @@ impl <S> Reader<S> where S: ReaderSegments {
 pub struct TypedReader<S, T>
     where S: ReaderSegments,
           T: for<'a> Owned<'a> {
-    marker: ::std::marker::PhantomData<T>,
+    marker: ::core::marker::PhantomData<T>,
     message: Reader<S>,
 }
 
@@ -226,7 +227,7 @@ impl <S, T> TypedReader<S, T>
 
     pub fn new(message: Reader<S>) -> Self {
         TypedReader {
-            marker: ::std::marker::PhantomData,
+            marker: ::core::marker::PhantomData,
             message: message,
         }
     }
@@ -430,7 +431,7 @@ impl HeapAllocator {
 
 unsafe impl Allocator for HeapAllocator {
     fn allocate_segment(&mut self, minimum_size: u32) -> (*mut u8, u32) {
-        let size = ::std::cmp::max(minimum_size, self.next_size);
+        let size = ::core::cmp::max(minimum_size, self.next_size);
         let mut new_words = crate::Word::allocate_zeroed_vec(size as usize);
         let ptr = new_words.as_mut_ptr() as *mut u8;
         self.owned_memory.push(new_words);
@@ -498,7 +499,7 @@ unsafe impl <'a, 'b: 'a> Allocator for ScratchSpaceHeapAllocator<'a, 'b> {
     fn pre_drop(&mut self, segment0_currently_allocated: u32) {
         let ptr = self.scratch_space.slice.as_mut_ptr();
         unsafe {
-            ::std::ptr::write_bytes(ptr, 0u8, (segment0_currently_allocated as usize) * BYTES_PER_WORD);
+            ::core::ptr::write_bytes(ptr, 0u8, (segment0_currently_allocated as usize) * BYTES_PER_WORD);
         }
         self.scratch_space.in_use = false;
     }

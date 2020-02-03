@@ -27,14 +27,15 @@ use crate::{any_pointer, Error, MessageSize};
 use crate::traits::{Pipelined, Owned};
 use crate::private::capability::{ClientHook, ParamsHook, RequestHook, ResponseHook, ResultsHook};
 
-use std::future::{Future};
-use std::pin::{Pin};
-use std::marker::Unpin;
-use std::task::Poll;
+use core::future::{Future};
+use core::pin::{Pin};
+use core::marker::Unpin;
+use core::task::Poll;
 #[cfg(feature = "rpc_try")]
-use std::ops::Try;
+use core::ops::Try;
+use alloc::boxed::Box;
 
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 /// A computation that might eventually resolve to a value of type `T` or to an error
 ///  of type `E`. Dropping the promise cancels the computation.
@@ -45,7 +46,7 @@ pub struct Promise<T, E> {
 
 enum PromiseInner<T, E> {
     Immediate(Result<T,E>),
-    Deferred(Pin<Box<dyn Future<Output=std::result::Result<T,E>> + 'static>>),
+    Deferred(Pin<Box<dyn Future<Output=core::result::Result<T,E>> + 'static>>),
     Empty,
 }
 
@@ -62,7 +63,7 @@ impl <T, E> Promise<T, E> {
     }
 
     pub fn from_future<F>(f: F) -> Promise<T, E>
-        where F: Future<Output=std::result::Result<T,E>> + 'static
+        where F: Future<Output=core::result::Result<T,E>> + 'static
     {
         Promise { inner: PromiseInner::Deferred(Box::pin(f)) }
     }
@@ -70,13 +71,13 @@ impl <T, E> Promise<T, E> {
 
 impl <T, E> Future for Promise<T, E>
 {
-    type Output = std::result::Result<T,E>;
+    type Output = core::result::Result<T,E>;
 
-    fn poll(self: Pin<&mut Self>, cx: &mut ::std::task::Context) -> Poll<Self::Output> {
+    fn poll(self: Pin<&mut Self>, cx: &mut ::core::task::Context) -> Poll<Self::Output> {
         match self.get_mut().inner {
             PromiseInner::Empty => panic!("Promise polled after done."),
             ref mut imm @ PromiseInner::Immediate(_) => {
-                match std::mem::replace(imm, PromiseInner::Empty) {
+                match core::mem::replace(imm, PromiseInner::Empty) {
                     PromiseInner::Immediate(r) => Poll::Ready(r),
                     _ => unreachable!(),
                 }
@@ -154,15 +155,16 @@ where Results: Pipelined + for<'a> Owned<'a> + 'static + Unpin,
       <Results as Pipelined>::Pipeline: FromTypelessPipeline
 {
     pub fn send(self) -> RemotePromise<Results> {
-        let RemotePromise {promise, pipeline, ..} = self.hook.send();
-        let typed_promise = Promise::from_future(
-            async move {
-                Ok(Response {hook: promise.await?.hook,
-                             marker: PhantomData})
-            });
-        RemotePromise { promise: typed_promise,
-                        pipeline: FromTypelessPipeline::new(pipeline)
-                      }
+        todo!("OH NO")
+        // let RemotePromise {promise, pipeline, ..} = self.hook.send();
+        // let typed_promise = Promise::from_future(
+        //     async move {
+        //         Ok(Response {hook: promise.await?.hook,
+        //                      marker: PhantomData})
+        //     });
+        // RemotePromise { promise: typed_promise,
+        //                 pipeline: FromTypelessPipeline::new(pipeline)
+        //               }
     }
 }
 

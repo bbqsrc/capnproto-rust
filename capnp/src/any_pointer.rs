@@ -26,6 +26,7 @@ use crate::private::capability::{ClientHook, PipelineHook, PipelineOp};
 use crate::private::layout::{PointerReader, PointerBuilder};
 use crate::traits::{FromPointerReader, FromPointerBuilder, SetPointerBuilder};
 use crate::Result;
+use alloc::{boxed::Box, vec::Vec};
 
 #[derive(Copy, Clone)]
 pub struct Owned(());
@@ -221,27 +222,30 @@ impl crate::capability::FromTypelessPipeline for Pipeline {
     }
 }
 
-#[test]
-fn init_clears_value() {
-    let mut message = crate::message::Builder::new_default();
-    {
-        let root: crate::any_pointer::Builder = message.init_root();
-        let mut list: crate::primitive_list::Builder<u16> = root.initn_as(10);
-        for idx in 0..10 {
-            list.set(idx, idx as u16);
+#[cfg(all(test, feature = "std"))]
+mod tests {
+    #[test]
+    fn init_clears_value() {
+        let mut message = crate::message::Builder::new_default();
+        {
+            let root: crate::any_pointer::Builder = message.init_root();
+            let mut list: crate::primitive_list::Builder<u16> = root.initn_as(10);
+            for idx in 0..10 {
+                list.set(idx, idx as u16);
+            }
         }
-    }
 
-    {
-        let root: crate::any_pointer::Builder = message.init_root();
-        assert!(root.is_null());
-    }
+        {
+            let root: crate::any_pointer::Builder = message.init_root();
+            assert!(root.is_null());
+        }
 
-    let mut output: Vec<u8> = Vec::new();
-    crate::serialize::write_message(&mut output, &mut message).unwrap();
-    assert_eq!(output.len(), 40);
-    for byte in &output[8..] {
-        // Everything not in the message header is zero.
-        assert_eq!(*byte, 0u8);
+        let mut output: Vec<u8> = Vec::new();
+        crate::serialize::write_message(&mut output, &mut message).unwrap();
+        assert_eq!(output.len(), 40);
+        for byte in &output[8..] {
+            // Everything not in the message header is zero.
+            assert_eq!(*byte, 0u8);
+        }
     }
 }

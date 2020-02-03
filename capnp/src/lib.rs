@@ -27,6 +27,13 @@
 //! [capnpc-rust](https://github.com/capnproto/capnproto-rust/capnpc) crate.
 #![cfg_attr(feature = "rpc_try", feature(try_trait))]
 
+#![no_std]
+extern crate alloc;
+
+#[cfg(feature = "std")]
+#[macro_use]
+extern crate std;
+
 pub mod any_pointer;
 pub mod any_pointer_list;
 pub mod capability;
@@ -46,6 +53,8 @@ pub mod struct_list;
 pub mod text;
 pub mod text_list;
 pub mod traits;
+
+use alloc::{vec::Vec, string::String, format};
 
 ///
 /// An 8-byte aligned value.
@@ -70,20 +79,20 @@ impl Word {
         unsafe {
             result.set_len(length);
             let p: *mut u8 = result.as_mut_ptr() as *mut u8;
-            std::ptr::write_bytes(p, 0u8, length * std::mem::size_of::<Word>());
+            core::ptr::write_bytes(p, 0u8, length * core::mem::size_of::<Word>());
         }
         result
     }
 
     pub fn words_to_bytes<'a>(words: &'a [Word]) -> &'a [u8] {
         unsafe {
-            std::slice::from_raw_parts(words.as_ptr() as *const u8, words.len() * 8)
+            core::slice::from_raw_parts(words.as_ptr() as *const u8, words.len() * 8)
         }
     }
 
     pub fn words_to_bytes_mut<'a>(words: &'a mut [Word]) -> &'a mut [u8] {
         unsafe {
-            std::slice::from_raw_parts_mut(words.as_mut_ptr() as *mut u8, words.len() * 8)
+            core::slice::from_raw_parts_mut(words.as_mut_ptr() as *mut u8, words.len() * 8)
         }
     }
 }
@@ -122,12 +131,14 @@ impl MessageSize {
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub struct NotInSchema(pub u16);
 
+#[cfg(feature = "std")]
 impl ::std::fmt::Display for NotInSchema {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::core::result::Result<(), ::std::fmt::Error> {
         write!(fmt, "Enum value or union discriminant {} was not present in the schema.", self.0)
     }
 }
 
+#[cfg(feature = "std")]
 impl ::std::error::Error for NotInSchema {
     fn description<'a>(&'a self) -> &'a str {
         "Enum value or union discriminant was not present in schema."
@@ -136,7 +147,7 @@ impl ::std::error::Error for NotInSchema {
 
 /// Because messages are lazily validated, the return type of any method that reads a pointer field
 /// must be wrapped in a Result.
-pub type Result<T> = ::std::result::Result<T, Error>;
+pub type Result<T> = ::core::result::Result<T, Error>;
 
 /// Describes an arbitrary error that prevented an operation from completing.
 #[derive(Debug, Clone)]
@@ -188,7 +199,8 @@ impl Error {
     }
 }
 
-impl ::std::convert::From<::std::io::Error> for Error {
+#[cfg(feature = "std")]
+impl ::core::convert::From<::std::io::Error> for Error {
     fn from(err: ::std::io::Error) -> Error {
         use std::io;
         let kind = match err.kind() {
@@ -204,30 +216,32 @@ impl ::std::convert::From<::std::io::Error> for Error {
     }
 }
 
-impl ::std::convert::From<::std::string::FromUtf8Error> for Error {
-    fn from(err: ::std::string::FromUtf8Error) -> Error {
+impl ::core::convert::From<::alloc::string::FromUtf8Error> for Error {
+    fn from(err: ::alloc::string::FromUtf8Error) -> Error {
         Error::failed(format!("{}", err))
     }
 }
 
-impl ::std::convert::From<::std::str::Utf8Error> for Error {
-    fn from(err: ::std::str::Utf8Error) -> Error {
+impl ::core::convert::From<::core::str::Utf8Error> for Error {
+    fn from(err: ::core::str::Utf8Error) -> Error {
         Error::failed(format!("{}", err))
     }
 }
 
-impl ::std::convert::From<NotInSchema> for Error {
+impl ::core::convert::From<NotInSchema> for Error {
     fn from(e: NotInSchema) -> Error {
         Error::failed(format!("Enum value or union discriminant {} was not present in schema.", e.0))
     }
 }
 
+#[cfg(feature = "std")]
 impl ::std::fmt::Display for Error {
-    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::result::Result<(), ::std::fmt::Error> {
+    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::core::result::Result<(), ::std::fmt::Error> {
         write!(fmt, "{:?}: {}", self.kind, self.description)
     }
 }
 
+#[cfg(feature = "std")]
 impl ::std::error::Error for Error {
     fn description(&self) -> &str {
         &self.description
@@ -244,7 +258,7 @@ pub enum OutputSegments<'a> {
     MultiSegment(Vec<&'a [u8]>),
 }
 
-impl <'a> ::std::ops::Deref for OutputSegments<'a> {
+impl <'a> ::core::ops::Deref for OutputSegments<'a> {
     type Target = [&'a [u8]];
     fn deref<'b>(&'b self) -> &'b [&'a [u8]] {
         match *self {

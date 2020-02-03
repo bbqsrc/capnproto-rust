@@ -20,13 +20,14 @@
 
 //! List of capabilities.
 
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 use crate::capability::{FromClientHook};
 use crate::private::capability::ClientHook;
 use crate::private::layout::{ListReader, ListBuilder, PointerReader, PointerBuilder, Pointer};
 use crate::traits::{FromPointerReader, FromPointerBuilder, IndexMove, ListIter};
 use crate::Result;
+use alloc::{boxed::Box};
 
 #[derive(Copy, Clone)]
 pub struct Owned<T> where T: FromClientHook {
@@ -152,7 +153,7 @@ impl <'a, T> crate::traits::SetPointerBuilder<Builder<'a, T>> for Reader<'a, T>
     }
 }
 
-impl <'a, T> ::std::iter::IntoIterator for Reader<'a, T>
+impl <'a, T> ::core::iter::IntoIterator for Reader<'a, T>
     where T: FromClientHook
 {
     type Item = Result<T>;

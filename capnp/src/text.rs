@@ -21,7 +21,8 @@
 
 //! UTF-8 encoded text.
 
-use std::{convert, str, ops};
+use core::{convert, str, ops};
+use alloc::{format};
 
 use crate::{Error, Result};
 

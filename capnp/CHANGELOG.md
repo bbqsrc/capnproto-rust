@@ -44,7 +44,7 @@
 - Add support for pointer field defaults.
 
 ## v0.9.4
-- Add optional rpc_try feature, implementing std::ops::Try for Promise.
+- Add optional rpc_try feature, implementing core::ops::Try for Promise.
 - Add 'raw' module with get_struct_data_section(), get_list_bytes(), and other functions.
 - Avoid potential undefined behavior in canonicalizaion.
 - Update a bunch of internal usages of `try!()` to `?`.
@@ -138,7 +138,7 @@
 
 ## v0.7.5
 - Implement DoubleEndedIter for ListIter.
-- Implement From<std::str::Utf8Error> for ::capnp::Error.
+- Implement From<core::str::Utf8Error> for ::capnp::Error.
 - Address some new linter warnings.
 
 ## v0.7.4
@@ -148,5 +148,5 @@
 - Get `message::Builder::get_root_as_reader()` to work on empty messages.
 
 ### v0.7.2
-- Implement `From<std::string::FromUtf8Error>` for `capnp::Error`
+- Implement `From<alloc::string::FromUtf8Error>` for `capnp::Error`
 - More and better iterators.

@@ -14,7 +14,6 @@ readme = "README.md"
 keywords = ["encoding", "protocol", "serialization"]
 
 [lib]
-
 name = "capnp"
 path = "src/lib.rs"
 
@@ -25,6 +24,8 @@ quickcheck = { version = "0.9", optional = true }
 quickcheck = "0.9"
 
 [features]
+default = ["std"]
+std = []
 rpc_try = []
 
 # If enabled, relaxes alignment requirements on segments.
