@@ -31,16 +31,58 @@ use std::io::{self, Read, Write};
 pub mod io {
     #[derive(Debug, Copy, Clone)]
     pub enum Error {
+        Interrupted,
+        UnexpectedEof,
+        WriteZero,
+        Other(&'static str),
+        Unknown
     }
 
     pub type Result<T> = ::core::result::Result<T, Error>;
 
     pub trait Read {
-        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()>;
+        fn read_exact(&mut self, mut buf: &mut [u8]) -> Result<()> {
+            while !buf.is_empty() {
+                match self.read(buf) {
+                    Ok(0) => break,
+                    Ok(n) => {
+                        let tmp = buf;
+                        buf = &mut tmp[n..];
+                    }
+                    Err(Error::Interrupted) => {}
+                    Err(e) => return Err(e),
+                }
+            }
+            if !buf.is_empty() {
+                Err(Error::UnexpectedEof)
+            } else {
+                Ok(())
+            }
+        }
+        fn read(&mut self, out_buf: &mut [u8]) -> Result<usize>;
+    }
+
+    pub trait BufRead: Read {
+        fn fill_buf(&mut self) -> Result<&[u8]>;
+        fn consume(&mut self, amt: usize);
     }
 
     pub trait Write {
-        fn write_all(&mut self, buf: &[u8]) -> Result<()>;
+        fn write_all(&mut self, mut buf: &[u8]) -> Result<()> {
+            while !buf.is_empty() {
+                match self.write(buf) {
+                    Ok(0) => {
+                        return Err(Error::WriteZero);
+                    }
+                    Ok(n) => buf = &buf[n..],
+                    Err(Error::Interrupted) => {}
+                    Err(e) => return Err(e),
+                }
+            }
+            Ok(())
+        }
+        fn write(&mut self, in_buf: &[u8]) -> Result<usize>;
+        fn flush(&mut self) -> Result<()>;
     }
 
     impl Read for &[u8] {
@@ -48,12 +90,69 @@ pub mod io {
             buf.copy_from_slice(self);
             Ok(())
         }
+
+        fn read(&mut self, out_buf: &mut [u8]) -> Result<usize> {
+            let count = core::cmp::min(self.len(), out_buf.len());
+            out_buf.copy_from_slice(&self[..count]);
+            Ok(count)
+        }
     }
 
     impl Write for &mut [u8] {
         fn write_all(&mut self, buf: &[u8]) -> Result<()> {
             self.copy_from_slice(buf);
             Ok(())
+        }
+
+        fn write(&mut self, in_buf: &[u8]) -> Result<usize> {
+            let count = core::cmp::min(self.len(), in_buf.len());
+            self.copy_from_slice(&in_buf[..count]);
+            Ok(count)
+        }
+
+        fn flush(&mut self) -> Result<()> {
+            Ok(())
+        }
+    }
+
+    impl<R: Read + ?Sized> Read for &mut R {
+        #[inline]
+        fn read(&mut self, buf: &mut [u8]) -> Result<usize> {
+            (**self).read(buf)
+        }
+
+        #[inline]
+        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()> {
+            (**self).read_exact(buf)
+        }
+    }
+
+    impl<W: Write + ?Sized> Write for &mut W {
+        #[inline]
+        fn write(&mut self, buf: &[u8]) -> Result<usize> {
+            (**self).write(buf)
+        }
+    
+        #[inline]
+        fn flush(&mut self) -> Result<()> {
+            (**self).flush()
+        }
+    
+        #[inline]
+        fn write_all(&mut self, buf: &[u8]) -> Result<()> {
+            (**self).write_all(buf)
+        }
+    }
+
+    impl<B: BufRead + ?Sized> BufRead for &mut B {
+        #[inline]
+        fn fill_buf(&mut self) -> Result<&[u8]> {
+            (**self).fill_buf()
+        }
+    
+        #[inline]
+        fn consume(&mut self, amt: usize) {
+            (**self).consume(amt)
         }
     }
 }

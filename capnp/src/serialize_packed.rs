@@ -23,21 +23,24 @@
 //! [packed stream encoding](https://capnproto.org/encoding.html#packing).
 
 #[cfg(feature = "std")]
-use std::{io, mem, ptr, slice};
+use std::io;
 #[cfg(feature = "std")]
 use std::io::{Read, BufRead, Write};
+
+#[cfg(not(feature = "std"))]
+use super::serialize::io::{self, Read, BufRead, Write};
+
+use core::{mem, ptr, slice};
 
 use crate::serialize;
 use crate::Result;
 use crate::message;
 
-#[cfg(feature = "std")]
 struct PackedRead<R> where R: BufRead {
     inner: R,
 }
 
-#[cfg(feature = "std")]
-impl <R> PackedRead<R> where R: BufRead {
+impl<R> PackedRead<R> where R: BufRead {
     fn get_read_buffer(&mut self) -> io::Result<(*const u8, *const u8)> {
         let buf = self.inner.fill_buf()?;
         Ok((buf.as_ptr(), buf.as_ptr().wrapping_offset(buf.len() as isize)))
@@ -49,6 +52,7 @@ fn ptr_sub<T>(p1: *const T, p2: *const T) -> usize {
     (p1 as usize - p2 as usize) / ::core::mem::size_of::<T>()
 }
 
+#[cfg(feature = "std")]
 macro_rules! refresh_buffer(
     ($this:expr, $size:ident, $in_ptr:ident, $in_end:ident, $out:ident,
      $outBuf:ident, $buffer_begin:ident) => (
@@ -67,9 +71,25 @@ macro_rules! refresh_buffer(
         );
     );
 
-#[cfg(feature = "std")]
-impl <R> Read for PackedRead<R> where R: BufRead {
+#[cfg(not(feature = "std"))]
+macro_rules! refresh_buffer(
+    ($this:expr, $size:ident, $in_ptr:ident, $in_end:ident, $out:ident,
+        $outBuf:ident, $buffer_begin:ident) => (
+        {
+            $this.inner.consume($size);
+            let (b, e) = $this.get_read_buffer()?;
+            $in_ptr = b;
+            $in_end = e;
+            $size = ptr_sub($in_end, $in_ptr);
+            $buffer_begin = b;
+            if $size == 0 {
+                return Err(io::Error::Unknown);
+            }
+        }
+        );
+    );
 
+impl<R> Read for PackedRead<R> where R: BufRead {
     fn read(&mut self, out_buf: &mut [u8]) -> io::Result<usize> {
         let len = out_buf.len();
 
@@ -150,8 +170,11 @@ impl <R> Read for PackedRead<R> where R: BufRead {
                     in_ptr = in_ptr.offset(1);
 
                     if run_length > ptr_sub(out_end, out) {
-                        return Err(io::Error::new(io::ErrorKind::Other,
-                                                  "Packed input did not end cleanly on a segment boundary."));
+                        let msg = "Packed input did not end cleanly on a segment boundary.";
+                        #[cfg(feature = "std")]
+                        return Err(io::Error::new(io::ErrorKind::Other, msg));
+                        #[cfg(not(feature = "std"))]
+                        return Err(io::Error::Other(msg))
                     }
 
                     ptr::write_bytes(out, 0, run_length);
@@ -165,8 +188,11 @@ impl <R> Read for PackedRead<R> where R: BufRead {
                     in_ptr = in_ptr.offset(1);
 
                     if run_length > ptr_sub(out_end, out) {
-                        return Err(io::Error::new(io::ErrorKind::Other,
-                                                  "Packed input did not end cleanly on a segment boundary."));
+                        let msg = "Packed input did not end cleanly on a segment boundary.";
+                        #[cfg(feature = "std")]
+                        return Err(io::Error::new(io::ErrorKind::Other, msg));
+                        #[cfg(not(feature = "std"))]
+                        return Err(io::Error::Other(msg))
                     }
 
                     let in_remaining = ptr_sub(in_end, in_ptr);
@@ -211,7 +237,6 @@ impl <R> Read for PackedRead<R> where R: BufRead {
     }
 }
 
-#[cfg(feature = "std")]
 /// Reads a packed message from a stream using the provided options.
 pub fn read_message<R>(read: &mut R,
                        options: message::ReaderOptions)
@@ -222,13 +247,11 @@ pub fn read_message<R>(read: &mut R,
     serialize::read_message(&mut packed_read, options)
 }
 
-#[cfg(feature = "std")]
 struct PackedWrite<W> where W: Write {
     inner: W,
 }
 
-#[cfg(feature = "std")]
-impl <W> Write for PackedWrite<W> where W: Write {
+impl<W> Write for PackedWrite<W> where W: Write {
     fn write(&mut self, in_buf: &[u8]) -> io::Result<usize> {
         unsafe {
             let mut buf_idx: usize = 0;
@@ -363,7 +386,6 @@ impl <W> Write for PackedWrite<W> where W: Write {
 }
 
 /// Writes a packed message to a stream.
-#[cfg(feature = "std")]
 pub fn write_message<W, A>(write: &mut W, message: &crate::message::Builder<A>) -> io::Result<()>
     where W: Write, A: crate::message::Allocator
 {
