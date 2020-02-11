@@ -30,7 +30,7 @@ use std::io::{Read, BufRead, Write};
 #[cfg(not(feature = "std"))]
 use super::serialize::io::{self, Read, BufRead, Write};
 
-use core::{mem, ptr, slice};
+use core::{ptr, slice};
 
 use crate::serialize;
 use crate::Result;

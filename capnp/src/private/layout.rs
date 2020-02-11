@@ -22,7 +22,7 @@
 use core::mem;
 use core::ptr;
 use core::cell::Cell;
-use alloc::{boxed::Box, vec::Vec, format, string::ToString};
+use alloc::{boxed::Box, vec::Vec, format};
 
 use crate::data;
 use crate::text;
