@@ -374,7 +374,7 @@ pub fn getter_text(gen: &GeneratorContext,
             let default_name = format!("DEFAULT_{}", snake_to_upper_case(&camel_to_snake_case(field.get_name()?)));
 
             let mut result_type = match raw_type.which()? {
-                type_::Enum(_) => format!("::std::result::Result<{},::capnp::NotInSchema>", typ),
+                type_::Enum(_) => format!("::core::result::Result<{},::capnp::NotInSchema>", typ),
                 type_::AnyPointer(_) if !raw_type.is_parameter()? => typ.clone(),
                 type_::Interface(_) => {
                     format!("::capnp::Result<{}>", raw_type.type_string(gen, Leaf::Client)?)
@@ -441,7 +441,7 @@ pub fn getter_text(gen: &GeneratorContext,
                             crate::pointer_constants::WordArrayDeclarationOptions {public: true, omit_first_word: false})?);
                         format!("Some(&_private::{}[..])", default_name)
                     } else {
-                        "::std::option::Option::None".to_string()
+                        "::core::option::Option::None".to_string()
                     };
 
                     if is_reader {
@@ -788,7 +788,7 @@ fn generate_union(gen: &GeneratorContext,
 
         getter_interior.push(Branch(vec![
             Line(format!("{} => {{", dvalue)),
-            Indent(Box::new(Line(format!("::std::result::Result::Ok({}(", enumerant_name.clone())))),
+            Indent(Box::new(Line(format!("::core::result::Result::Ok({}(", enumerant_name.clone())))),
             Indent(Box::new(Indent(Box::new(get)))),
             Indent(Box::new(Line("))".to_string()))),
             Line("}".to_string())
@@ -1200,7 +1200,7 @@ fn generate_node(gen: &GeneratorContext,
                                 Indent(Box::new(Line("::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))".to_string()))),
                                 Line("}".to_string()),
                                 Line(format!("fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: ::std::option::Option<&'a [capnp::Word]>) -> ::capnp::Result<Builder<'a,{}>> {{", params.params)),
-                                Indent(Box::new(Line("::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))".to_string()))),
+                                Indent(Box::new(Line("::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))".to_string()))),
                                 Line("}".to_string()))))),
                     Line("}".to_string()),
                     BlankLine]);
@@ -1264,7 +1264,7 @@ fn generate_node(gen: &GeneratorContext,
                 Indent(
                     Box::new(Branch(vec!(
                         Line(format!("fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: ::std::option::Option<&'a [capnp::Word]>) -> ::capnp::Result<Reader<'a,{}>> {{",params.params)),
-                        Indent(Box::new(Line("::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))".to_string()))),
+                        Indent(Box::new(Line("::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))".to_string()))),
                         Line("}".to_string()))))),
                 Line("}".to_string()),
                 BlankLine,
@@ -1605,7 +1605,7 @@ fn generate_node(gen: &GeneratorContext,
                 Indent(
                     Box::new(Branch(vec![
                         Line(format!("fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, _default: ::std::option::Option<&'a [capnp::Word]>) -> ::capnp::Result<Client<{}>> {{",params.params)),
-                        Indent(Box::new(Line(format!("::std::result::Result::Ok(::capnp::capability::FromClientHook::new(reader.get_capability()?))")))),
+                        Indent(Box::new(Line(format!("::core::result::Result::Ok(::capnp::capability::FromClientHook::new(reader.get_capability()?))")))),
                         Line("}".to_string())]))),
                 Line("}".to_string()))));
 
@@ -1619,7 +1619,7 @@ fn generate_node(gen: &GeneratorContext,
                             Indent(Box::new(Line("unimplemented!()".to_string()))),
                             Line("}".to_string()),
                             Line(format!("fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, _default: ::std::option::Option<&'a [capnp::Word]>) -> ::capnp::Result<Client<{}>> {{", params.params)),
-                            Indent(Box::new(Line("::std::result::Result::Ok(::capnp::capability::FromClientHook::new(builder.get_capability()?))".to_string()))),
+                            Indent(Box::new(Line("::core::result::Result::Ok(::capnp::capability::FromClientHook::new(builder.get_capability()?))".to_string()))),
                             Line("}".to_string())]))),
                 Line("}".to_string()),
                 BlankLine]));
@@ -1636,7 +1636,7 @@ fn generate_node(gen: &GeneratorContext,
                             Indent(Box::new(Line(
                                 "pointer.set_capability(from.client.hook);".to_string()))),
                             Indent(Box::new(Line(
-                                "::std::result::Result::Ok(())".to_string()))),
+                                "::core::result::Result::Ok(())".to_string()))),
                             Line("}".to_string())]))),
                 Line("}".to_string())]));
 

@@ -3,7 +3,7 @@ members = [
     # main crates, published on crates.io
     "capnp",
     "capnpc",
-    "capnp-futures",
+    # "capnp-futures",
     "capnp-rpc",
 
     # testing and examples
@@ -16,6 +16,7 @@ members = [
     "capnp-rpc/test",
     "example/addressbook",
     "example/addressbook_send",
+    # "example/embedded_thing",
 ]
 default-members = [
     "capnp",

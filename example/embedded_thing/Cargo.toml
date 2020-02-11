@@ -1,0 +1,10 @@
+[package]
+name = "embedded_thing"
+version = "0.1.0"
+authors = ["Pascal Hertleif <pascal@technocreatives.com>"]
+edition = "2018"
+
+[dependencies]
+capnp = { path = "../../capnp", default-features = false }
+
+[workspace]
