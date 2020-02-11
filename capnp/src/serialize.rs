@@ -67,6 +67,14 @@ pub mod io {
         fn consume(&mut self, amt: usize);
     }
 
+    impl<'a> BufRead for &'a [u8] {
+        fn fill_buf(&mut self) -> Result<&[u8]> {
+            Ok(self)
+        }
+
+        fn consume(&mut self, amt: usize) { }
+    }
+
     pub trait Write {
         fn write_all(&mut self, mut buf: &[u8]) -> Result<()> {
             while !buf.is_empty() {
@@ -86,11 +94,6 @@ pub mod io {
     }
 
     impl Read for &[u8] {
-        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()> {
-            buf.copy_from_slice(self);
-            Ok(())
-        }
-
         fn read(&mut self, out_buf: &mut [u8]) -> Result<usize> {
             let count = core::cmp::min(self.len(), out_buf.len());
             out_buf.copy_from_slice(&self[..count]);
@@ -99,14 +102,62 @@ pub mod io {
     }
 
     impl Write for &mut [u8] {
+        fn write(&mut self, in_buf: &[u8]) -> Result<usize> {
+            let count = core::cmp::min(self.len(), in_buf.len());
+            self.copy_from_slice(&in_buf[..count]);
+            Ok(count)
+        }
+
+        fn flush(&mut self) -> Result<()> {
+            Ok(())
+        }
+    }
+
+    pub struct Buffer<'a> {
+        data: &'a mut [u8],
+        bytes_written: usize,
+    }
+
+    impl<'a> Buffer<'a> {
+        pub fn new(data: &mut [u8]) -> Buffer {
+            Buffer { data, bytes_written: 0 }
+        }
+    }
+
+    impl<'a> Read for Buffer<'a> {
+        fn read_exact(&mut self, buf: &mut [u8]) -> Result<()> {
+            let max = core::cmp::min(buf.len(), self.bytes_written);
+            for (i, val) in self.data.iter().enumerate().take(max) {
+                buf[i] = *val;
+            }
+
+            Ok(())
+        }
+
+        fn read(&mut self, out_buf: &mut [u8]) -> Result<usize> {
+            let count = core::cmp::min(self.data.len(), out_buf.len());
+            out_buf.copy_from_slice(&self.data[..count]);
+            Ok(count)
+        }
+    }
+
+    impl<'a> Write for Buffer<'a> {
         fn write_all(&mut self, buf: &[u8]) -> Result<()> {
-            self.copy_from_slice(buf);
+            assert!(buf.len() <= self.data.len(), "buffer too small: {} <= {}", buf.len(), self.data.len());
+
+            for (i, val) in buf.iter().enumerate() {
+                self.data[i] = *val;
+            }
+
+            self.bytes_written += buf.len();
+
             Ok(())
         }
 
         fn write(&mut self, in_buf: &[u8]) -> Result<usize> {
-            let count = core::cmp::min(self.len(), in_buf.len());
-            self.copy_from_slice(&in_buf[..count]);
+            let count = core::cmp::min(self.data.len(), in_buf.len());
+            self.data.copy_from_slice(&in_buf[..count]);
+            self.bytes_written += count;
             Ok(count)
         }
 
@@ -132,12 +183,12 @@ pub mod io {
         fn write(&mut self, buf: &[u8]) -> Result<usize> {
             (**self).write(buf)
         }
-    
+
         #[inline]
         fn flush(&mut self) -> Result<()> {
             (**self).flush()
         }
-    
+
         #[inline]
         fn write_all(&mut self, buf: &[u8]) -> Result<()> {
             (**self).write_all(buf)
@@ -149,7 +200,7 @@ pub mod io {
         fn fill_buf(&mut self) -> Result<&[u8]> {
             (**self).fill_buf()
         }
-    
+
         #[inline]
         fn consume(&mut self, amt: usize) {
             (**self).consume(amt)
