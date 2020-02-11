@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//! Hooks for for the RPC system.
+//! Hooks for the RPC system.
 //!
 //! Roughly corresponds to capability.h in the C++ implementation.
 
@@ -147,24 +147,6 @@ impl <Params, Results> Request<Params, Results>
 
     pub fn set(&mut self, from: <Params as Owned>::Reader) -> crate::Result<()> {
         self.hook.get().set_as(from)
-    }
-}
-
-impl <Params, Results> Request <Params, Results>
-where Results: Pipelined + for<'a> Owned<'a> + 'static + Unpin,
-      <Results as Pipelined>::Pipeline: FromTypelessPipeline
-{
-    pub fn send(self) -> RemotePromise<Results> {
-        todo!("OH NO")
-        // let RemotePromise {promise, pipeline, ..} = self.hook.send();
-        // let typed_promise = Promise::from_future(
-        //     async move {
-        //         Ok(Response {hook: promise.await?.hook,
-        //                      marker: PhantomData})
-        //     });
-        // RemotePromise { promise: typed_promise,
-        //                 pipeline: FromTypelessPipeline::new(pipeline)
-        //               }
     }
 }
 
