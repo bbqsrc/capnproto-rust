@@ -27,7 +27,7 @@ pub mod node {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -96,39 +96,39 @@ pub mod node {
       self.reader.get_bool_field(288)
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
       match self.reader.get_data_field::<u16>(6) {
         0 => {
-          ::std::result::Result::Ok(File(
+          ::core::result::Result::Ok(File(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Const(
+          ::core::result::Result::Ok(Const(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Annotation(
+          ::core::result::Result::Ok(Annotation(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -159,7 +159,7 @@ pub mod node {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -328,39 +328,39 @@ pub mod node {
       self.builder.set_bool_field(288, value);
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
       match self.builder.get_data_field::<u16>(6) {
         0 => {
-          ::std::result::Result::Ok(File(
+          ::core::result::Result::Ok(File(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Const(
+          ::core::result::Result::Ok(Const(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Annotation(
+          ::core::result::Result::Ok(Annotation(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -411,7 +411,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -470,7 +470,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -546,7 +546,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -609,7 +609,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -693,7 +693,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -763,7 +763,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -861,7 +861,7 @@ pub mod node {
 
       impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
         fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
         }
       }
 
@@ -920,7 +920,7 @@ pub mod node {
           ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
         }
         fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
         }
       }
 
@@ -997,7 +997,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -1030,7 +1030,7 @@ pub mod node {
         self.reader.get_data_field::<u16>(12)
       }
       #[inline]
-      pub fn get_preferred_list_encoding(self) -> ::std::result::Result<crate::schema_capnp::ElementSize,::capnp::NotInSchema> {
+      pub fn get_preferred_list_encoding(self) -> ::core::result::Result<crate::schema_capnp::ElementSize,::capnp::NotInSchema> {
         ::capnp::traits::FromU16::from_u16(self.reader.get_data_field::<u16>(13))
       }
       #[inline]
@@ -1080,7 +1080,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -1119,7 +1119,7 @@ pub mod node {
         self.builder.set_data_field::<u16>(12, value);
       }
       #[inline]
-      pub fn get_preferred_list_encoding(self) -> ::std::result::Result<crate::schema_capnp::ElementSize,::capnp::NotInSchema> {
+      pub fn get_preferred_list_encoding(self) -> ::core::result::Result<crate::schema_capnp::ElementSize,::capnp::NotInSchema> {
         ::capnp::traits::FromU16::from_u16(self.builder.get_data_field::<u16>(13))
       }
       #[inline]
@@ -1204,7 +1204,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -1263,7 +1263,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -1339,7 +1339,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -1405,7 +1405,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -1496,7 +1496,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -1562,7 +1562,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -1659,7 +1659,7 @@ pub mod node {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -1766,7 +1766,7 @@ pub mod node {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -1944,7 +1944,7 @@ pub mod field {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -1995,19 +1995,19 @@ pub mod field {
       ::capnp::traits::FromStructReader::new(self.reader)
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
       match self.reader.get_data_field::<u16>(4) {
         0 => {
-          ::std::result::Result::Ok(Slot(
+          ::core::result::Result::Ok(Slot(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Group(
+          ::core::result::Result::Ok(Group(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -2038,7 +2038,7 @@ pub mod field {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -2132,19 +2132,19 @@ pub mod field {
       ::capnp::traits::FromStructBuilder::new(self.builder)
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
       match self.builder.get_data_field::<u16>(4) {
         0 => {
-          ::std::result::Result::Ok(Slot(
+          ::core::result::Result::Ok(Slot(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Group(
+          ::core::result::Result::Ok(Group(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -2195,7 +2195,7 @@ pub mod field {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -2269,7 +2269,7 @@ pub mod field {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -2382,7 +2382,7 @@ pub mod field {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -2438,7 +2438,7 @@ pub mod field {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -2509,7 +2509,7 @@ pub mod field {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -2534,19 +2534,19 @@ pub mod field {
         self.reader.total_size()
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichReader, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichReader, ::capnp::NotInSchema> {
         match self.reader.get_data_field::<u16>(5) {
           0 => {
-            ::std::result::Result::Ok(Implicit(
+            ::core::result::Result::Ok(Implicit(
               ()
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Explicit(
+            ::core::result::Result::Ok(Explicit(
               self.reader.get_data_field::<u16>(6)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -2577,7 +2577,7 @@ pub mod field {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -2609,19 +2609,19 @@ pub mod field {
         self.builder.set_data_field::<u16>(6, value);
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichBuilder, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichBuilder, ::capnp::NotInSchema> {
         match self.builder.get_data_field::<u16>(5) {
           0 => {
-            ::std::result::Result::Ok(Implicit(
+            ::core::result::Result::Ok(Implicit(
               ()
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Explicit(
+            ::core::result::Result::Ok(Explicit(
               self.builder.get_data_field::<u16>(6)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -2670,7 +2670,7 @@ pub mod enumerant {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -2740,7 +2740,7 @@ pub mod enumerant {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -2839,7 +2839,7 @@ pub mod superclass {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -2902,7 +2902,7 @@ pub mod superclass {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -2989,7 +2989,7 @@ pub mod method {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -3088,7 +3088,7 @@ pub mod method {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -3256,7 +3256,7 @@ pub mod type_ {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -3281,104 +3281,104 @@ pub mod type_ {
       self.reader.total_size()
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
       match self.reader.get_data_field::<u16>(0) {
         0 => {
-          ::std::result::Result::Ok(Void(
+          ::core::result::Result::Ok(Void(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Bool(
+          ::core::result::Result::Ok(Bool(
             ()
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Int8(
+          ::core::result::Result::Ok(Int8(
             ()
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Int16(
+          ::core::result::Result::Ok(Int16(
             ()
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Int32(
+          ::core::result::Result::Ok(Int32(
             ()
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Int64(
+          ::core::result::Result::Ok(Int64(
             ()
           ))
         }
         6 => {
-          ::std::result::Result::Ok(Uint8(
+          ::core::result::Result::Ok(Uint8(
             ()
           ))
         }
         7 => {
-          ::std::result::Result::Ok(Uint16(
+          ::core::result::Result::Ok(Uint16(
             ()
           ))
         }
         8 => {
-          ::std::result::Result::Ok(Uint32(
+          ::core::result::Result::Ok(Uint32(
             ()
           ))
         }
         9 => {
-          ::std::result::Result::Ok(Uint64(
+          ::core::result::Result::Ok(Uint64(
             ()
           ))
         }
         10 => {
-          ::std::result::Result::Ok(Float32(
+          ::core::result::Result::Ok(Float32(
             ()
           ))
         }
         11 => {
-          ::std::result::Result::Ok(Float64(
+          ::core::result::Result::Ok(Float64(
             ()
           ))
         }
         12 => {
-          ::std::result::Result::Ok(Text(
+          ::core::result::Result::Ok(Text(
             ()
           ))
         }
         13 => {
-          ::std::result::Result::Ok(Data(
+          ::core::result::Result::Ok(Data(
             ()
           ))
         }
         14 => {
-          ::std::result::Result::Ok(List(
+          ::core::result::Result::Ok(List(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         15 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         16 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         17 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
         18 => {
-          ::std::result::Result::Ok(AnyPointer(
+          ::core::result::Result::Ok(AnyPointer(
             ::capnp::traits::FromStructReader::new(self.reader)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -3409,7 +3409,7 @@ pub mod type_ {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -3525,104 +3525,104 @@ pub mod type_ {
       ::capnp::traits::FromStructBuilder::new(self.builder)
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
       match self.builder.get_data_field::<u16>(0) {
         0 => {
-          ::std::result::Result::Ok(Void(
+          ::core::result::Result::Ok(Void(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Bool(
+          ::core::result::Result::Ok(Bool(
             ()
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Int8(
+          ::core::result::Result::Ok(Int8(
             ()
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Int16(
+          ::core::result::Result::Ok(Int16(
             ()
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Int32(
+          ::core::result::Result::Ok(Int32(
             ()
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Int64(
+          ::core::result::Result::Ok(Int64(
             ()
           ))
         }
         6 => {
-          ::std::result::Result::Ok(Uint8(
+          ::core::result::Result::Ok(Uint8(
             ()
           ))
         }
         7 => {
-          ::std::result::Result::Ok(Uint16(
+          ::core::result::Result::Ok(Uint16(
             ()
           ))
         }
         8 => {
-          ::std::result::Result::Ok(Uint32(
+          ::core::result::Result::Ok(Uint32(
             ()
           ))
         }
         9 => {
-          ::std::result::Result::Ok(Uint64(
+          ::core::result::Result::Ok(Uint64(
             ()
           ))
         }
         10 => {
-          ::std::result::Result::Ok(Float32(
+          ::core::result::Result::Ok(Float32(
             ()
           ))
         }
         11 => {
-          ::std::result::Result::Ok(Float64(
+          ::core::result::Result::Ok(Float64(
             ()
           ))
         }
         12 => {
-          ::std::result::Result::Ok(Text(
+          ::core::result::Result::Ok(Text(
             ()
           ))
         }
         13 => {
-          ::std::result::Result::Ok(Data(
+          ::core::result::Result::Ok(Data(
             ()
           ))
         }
         14 => {
-          ::std::result::Result::Ok(List(
+          ::core::result::Result::Ok(List(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         15 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         16 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         17 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
         18 => {
-          ::std::result::Result::Ok(AnyPointer(
+          ::core::result::Result::Ok(AnyPointer(
             ::capnp::traits::FromStructBuilder::new(self.builder)
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -3686,7 +3686,7 @@ pub mod type_ {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -3745,7 +3745,7 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -3824,7 +3824,7 @@ pub mod type_ {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -3887,7 +3887,7 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -3974,7 +3974,7 @@ pub mod type_ {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -4037,7 +4037,7 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -4124,7 +4124,7 @@ pub mod type_ {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -4187,7 +4187,7 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -4276,7 +4276,7 @@ pub mod type_ {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -4301,24 +4301,24 @@ pub mod type_ {
         self.reader.total_size()
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
         match self.reader.get_data_field::<u16>(4) {
           0 => {
-            ::std::result::Result::Ok(Unconstrained(
+            ::core::result::Result::Ok(Unconstrained(
               ::capnp::traits::FromStructReader::new(self.reader)
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Parameter(
+            ::core::result::Result::Ok(Parameter(
               ::capnp::traits::FromStructReader::new(self.reader)
             ))
           }
           2 => {
-            ::std::result::Result::Ok(ImplicitMethodParameter(
+            ::core::result::Result::Ok(ImplicitMethodParameter(
               ::capnp::traits::FromStructReader::new(self.reader)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -4349,7 +4349,7 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -4391,24 +4391,24 @@ pub mod type_ {
         ::capnp::traits::FromStructBuilder::new(self.builder)
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
         match self.builder.get_data_field::<u16>(4) {
           0 => {
-            ::std::result::Result::Ok(Unconstrained(
+            ::core::result::Result::Ok(Unconstrained(
               ::capnp::traits::FromStructBuilder::new(self.builder)
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Parameter(
+            ::core::result::Result::Ok(Parameter(
               ::capnp::traits::FromStructBuilder::new(self.builder)
             ))
           }
           2 => {
-            ::std::result::Result::Ok(ImplicitMethodParameter(
+            ::core::result::Result::Ok(ImplicitMethodParameter(
               ::capnp::traits::FromStructBuilder::new(self.builder)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -4458,7 +4458,7 @@ pub mod type_ {
 
       impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
         fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
         }
       }
 
@@ -4483,29 +4483,29 @@ pub mod type_ {
           self.reader.total_size()
         }
         #[inline]
-        pub fn which(self) -> ::std::result::Result<WhichReader, ::capnp::NotInSchema> {
+        pub fn which(self) -> ::core::result::Result<WhichReader, ::capnp::NotInSchema> {
           match self.reader.get_data_field::<u16>(5) {
             0 => {
-              ::std::result::Result::Ok(AnyKind(
+              ::core::result::Result::Ok(AnyKind(
                 ()
               ))
             }
             1 => {
-              ::std::result::Result::Ok(Struct(
+              ::core::result::Result::Ok(Struct(
                 ()
               ))
             }
             2 => {
-              ::std::result::Result::Ok(List(
+              ::core::result::Result::Ok(List(
                 ()
               ))
             }
             3 => {
-              ::std::result::Result::Ok(Capability(
+              ::core::result::Result::Ok(Capability(
                 ()
               ))
             }
-            x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+            x => ::core::result::Result::Err(::capnp::NotInSchema(x))
           }
         }
       }
@@ -4536,7 +4536,7 @@ pub mod type_ {
           ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
         }
         fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
         }
       }
 
@@ -4575,29 +4575,29 @@ pub mod type_ {
           self.builder.set_data_field::<u16>(5, 3);
         }
         #[inline]
-        pub fn which(self) -> ::std::result::Result<WhichBuilder, ::capnp::NotInSchema> {
+        pub fn which(self) -> ::core::result::Result<WhichBuilder, ::capnp::NotInSchema> {
           match self.builder.get_data_field::<u16>(5) {
             0 => {
-              ::std::result::Result::Ok(AnyKind(
+              ::core::result::Result::Ok(AnyKind(
                 ()
               ))
             }
             1 => {
-              ::std::result::Result::Ok(Struct(
+              ::core::result::Result::Ok(Struct(
                 ()
               ))
             }
             2 => {
-              ::std::result::Result::Ok(List(
+              ::core::result::Result::Ok(List(
                 ()
               ))
             }
             3 => {
-              ::std::result::Result::Ok(Capability(
+              ::core::result::Result::Ok(Capability(
                 ()
               ))
             }
-            x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+            x => ::core::result::Result::Err(::capnp::NotInSchema(x))
           }
         }
       }
@@ -4647,7 +4647,7 @@ pub mod type_ {
 
       impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
         fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
         }
       }
 
@@ -4707,7 +4707,7 @@ pub mod type_ {
           ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
         }
         fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
         }
       }
 
@@ -4784,7 +4784,7 @@ pub mod type_ {
 
       impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
         fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
         }
       }
 
@@ -4840,7 +4840,7 @@ pub mod type_ {
           ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
         }
         fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
         }
       }
 
@@ -4911,7 +4911,7 @@ pub mod brand {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -4970,7 +4970,7 @@ pub mod brand {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -5047,7 +5047,7 @@ pub mod brand {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -5080,19 +5080,19 @@ pub mod brand {
         !self.reader.get_pointer_field(0).is_null()
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
         match self.reader.get_data_field::<u16>(4) {
           0 => {
-            ::std::result::Result::Ok(Bind(
+            ::core::result::Result::Ok(Bind(
               ::capnp::traits::FromPointerReader::get_from_pointer(&self.reader.get_pointer_field(0), None)
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Inherit(
+            ::core::result::Result::Ok(Inherit(
               ()
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -5123,7 +5123,7 @@ pub mod brand {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -5172,19 +5172,19 @@ pub mod brand {
         self.builder.set_data_field::<u16>(4, 1);
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
         match self.builder.get_data_field::<u16>(4) {
           0 => {
-            ::std::result::Result::Ok(Bind(
+            ::core::result::Result::Ok(Bind(
               ::capnp::traits::FromPointerBuilder::get_from_pointer(self.builder.get_pointer_field(0), None)
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Inherit(
+            ::core::result::Result::Ok(Inherit(
               ()
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -5234,7 +5234,7 @@ pub mod brand {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a[::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -5263,19 +5263,19 @@ pub mod brand {
         !self.reader.get_pointer_field(0).is_null()
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
         match self.reader.get_data_field::<u16>(0) {
           0 => {
-            ::std::result::Result::Ok(Unbound(
+            ::core::result::Result::Ok(Unbound(
               ()
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Type(
+            ::core::result::Result::Ok(Type(
               ::capnp::traits::FromPointerReader::get_from_pointer(&self.reader.get_pointer_field(0), None)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -5306,7 +5306,7 @@ pub mod brand {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -5347,19 +5347,19 @@ pub mod brand {
         !self.builder.get_pointer_field(0).is_null()
       }
       #[inline]
-      pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+      pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
         match self.builder.get_data_field::<u16>(0) {
           0 => {
-            ::std::result::Result::Ok(Unbound(
+            ::core::result::Result::Ok(Unbound(
               ()
             ))
           }
           1 => {
-            ::std::result::Result::Ok(Type(
+            ::core::result::Result::Ok(Type(
               ::capnp::traits::FromPointerBuilder::get_from_pointer(self.builder.get_pointer_field(0), None)
             ))
           }
-          x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+          x => ::core::result::Result::Err(::capnp::NotInSchema(x))
         }
       }
     }
@@ -5410,7 +5410,7 @@ pub mod value {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a[::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -5455,104 +5455,104 @@ pub mod value {
       !self.reader.get_pointer_field(0).is_null()
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichReader<'a,>, ::capnp::NotInSchema> {
       match self.reader.get_data_field::<u16>(0) {
         0 => {
-          ::std::result::Result::Ok(Void(
+          ::core::result::Result::Ok(Void(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Bool(
+          ::core::result::Result::Ok(Bool(
             self.reader.get_bool_field(16)
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Int8(
+          ::core::result::Result::Ok(Int8(
             self.reader.get_data_field::<i8>(2)
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Int16(
+          ::core::result::Result::Ok(Int16(
             self.reader.get_data_field::<i16>(1)
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Int32(
+          ::core::result::Result::Ok(Int32(
             self.reader.get_data_field::<i32>(1)
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Int64(
+          ::core::result::Result::Ok(Int64(
             self.reader.get_data_field::<i64>(1)
           ))
         }
         6 => {
-          ::std::result::Result::Ok(Uint8(
+          ::core::result::Result::Ok(Uint8(
             self.reader.get_data_field::<u8>(2)
           ))
         }
         7 => {
-          ::std::result::Result::Ok(Uint16(
+          ::core::result::Result::Ok(Uint16(
             self.reader.get_data_field::<u16>(1)
           ))
         }
         8 => {
-          ::std::result::Result::Ok(Uint32(
+          ::core::result::Result::Ok(Uint32(
             self.reader.get_data_field::<u32>(1)
           ))
         }
         9 => {
-          ::std::result::Result::Ok(Uint64(
+          ::core::result::Result::Ok(Uint64(
             self.reader.get_data_field::<u64>(1)
           ))
         }
         10 => {
-          ::std::result::Result::Ok(Float32(
+          ::core::result::Result::Ok(Float32(
             self.reader.get_data_field::<f32>(1)
           ))
         }
         11 => {
-          ::std::result::Result::Ok(Float64(
+          ::core::result::Result::Ok(Float64(
             self.reader.get_data_field::<f64>(1)
           ))
         }
         12 => {
-          ::std::result::Result::Ok(Text(
+          ::core::result::Result::Ok(Text(
             self.reader.get_pointer_field(0).get_text(None)
           ))
         }
         13 => {
-          ::std::result::Result::Ok(Data(
+          ::core::result::Result::Ok(Data(
             self.reader.get_pointer_field(0).get_data(None)
           ))
         }
         14 => {
-          ::std::result::Result::Ok(List(
+          ::core::result::Result::Ok(List(
             ::capnp::any_pointer::Reader::new(self.reader.get_pointer_field(0))
           ))
         }
         15 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             self.reader.get_data_field::<u16>(1)
           ))
         }
         16 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::any_pointer::Reader::new(self.reader.get_pointer_field(0))
           ))
         }
         17 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ()
           ))
         }
         18 => {
-          ::std::result::Result::Ok(AnyPointer(
+          ::core::result::Result::Ok(AnyPointer(
             ::capnp::any_pointer::Reader::new(self.reader.get_pointer_field(0))
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -5583,7 +5583,7 @@ pub mod value {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -5735,104 +5735,104 @@ pub mod value {
       !self.builder.get_pointer_field(0).is_null()
     }
     #[inline]
-    pub fn which(self) -> ::std::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
+    pub fn which(self) -> ::core::result::Result<WhichBuilder<'a,>, ::capnp::NotInSchema> {
       match self.builder.get_data_field::<u16>(0) {
         0 => {
-          ::std::result::Result::Ok(Void(
+          ::core::result::Result::Ok(Void(
             ()
           ))
         }
         1 => {
-          ::std::result::Result::Ok(Bool(
+          ::core::result::Result::Ok(Bool(
             self.builder.get_bool_field(16)
           ))
         }
         2 => {
-          ::std::result::Result::Ok(Int8(
+          ::core::result::Result::Ok(Int8(
             self.builder.get_data_field::<i8>(2)
           ))
         }
         3 => {
-          ::std::result::Result::Ok(Int16(
+          ::core::result::Result::Ok(Int16(
             self.builder.get_data_field::<i16>(1)
           ))
         }
         4 => {
-          ::std::result::Result::Ok(Int32(
+          ::core::result::Result::Ok(Int32(
             self.builder.get_data_field::<i32>(1)
           ))
         }
         5 => {
-          ::std::result::Result::Ok(Int64(
+          ::core::result::Result::Ok(Int64(
             self.builder.get_data_field::<i64>(1)
           ))
         }
         6 => {
-          ::std::result::Result::Ok(Uint8(
+          ::core::result::Result::Ok(Uint8(
             self.builder.get_data_field::<u8>(2)
           ))
         }
         7 => {
-          ::std::result::Result::Ok(Uint16(
+          ::core::result::Result::Ok(Uint16(
             self.builder.get_data_field::<u16>(1)
           ))
         }
         8 => {
-          ::std::result::Result::Ok(Uint32(
+          ::core::result::Result::Ok(Uint32(
             self.builder.get_data_field::<u32>(1)
           ))
         }
         9 => {
-          ::std::result::Result::Ok(Uint64(
+          ::core::result::Result::Ok(Uint64(
             self.builder.get_data_field::<u64>(1)
           ))
         }
         10 => {
-          ::std::result::Result::Ok(Float32(
+          ::core::result::Result::Ok(Float32(
             self.builder.get_data_field::<f32>(1)
           ))
         }
         11 => {
-          ::std::result::Result::Ok(Float64(
+          ::core::result::Result::Ok(Float64(
             self.builder.get_data_field::<f64>(1)
           ))
         }
         12 => {
-          ::std::result::Result::Ok(Text(
+          ::core::result::Result::Ok(Text(
             self.builder.get_pointer_field(0).get_text(None)
           ))
         }
         13 => {
-          ::std::result::Result::Ok(Data(
+          ::core::result::Result::Ok(Data(
             self.builder.get_pointer_field(0).get_data(None)
           ))
         }
         14 => {
-          ::std::result::Result::Ok(List(
+          ::core::result::Result::Ok(List(
             ::capnp::any_pointer::Builder::new(self.builder.get_pointer_field(0))
           ))
         }
         15 => {
-          ::std::result::Result::Ok(Enum(
+          ::core::result::Result::Ok(Enum(
             self.builder.get_data_field::<u16>(1)
           ))
         }
         16 => {
-          ::std::result::Result::Ok(Struct(
+          ::core::result::Result::Ok(Struct(
             ::capnp::any_pointer::Builder::new(self.builder.get_pointer_field(0))
           ))
         }
         17 => {
-          ::std::result::Result::Ok(Interface(
+          ::core::result::Result::Ok(Interface(
             ()
           ))
         }
         18 => {
-          ::std::result::Result::Ok(AnyPointer(
+          ::core::result::Result::Ok(AnyPointer(
             ::capnp::any_pointer::Builder::new(self.builder.get_pointer_field(0))
           ))
         }
-        x => ::std::result::Result::Err(::capnp::NotInSchema(x))
+        x => ::core::result::Result::Err(::capnp::NotInSchema(x))
       }
     }
   }
@@ -5897,7 +5897,7 @@ pub mod annotation {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -5967,7 +5967,7 @@ pub mod annotation {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -6064,17 +6064,17 @@ pub enum ElementSize {
 }
 impl ::capnp::traits::FromU16 for ElementSize {
   #[inline]
-  fn from_u16(value: u16) -> ::std::result::Result<ElementSize, ::capnp::NotInSchema> {
+  fn from_u16(value: u16) -> ::core::result::Result<ElementSize, ::capnp::NotInSchema> {
     match value {
-      0 => ::std::result::Result::Ok(ElementSize::Empty),
-      1 => ::std::result::Result::Ok(ElementSize::Bit),
-      2 => ::std::result::Result::Ok(ElementSize::Byte),
-      3 => ::std::result::Result::Ok(ElementSize::TwoBytes),
-      4 => ::std::result::Result::Ok(ElementSize::FourBytes),
-      5 => ::std::result::Result::Ok(ElementSize::EightBytes),
-      6 => ::std::result::Result::Ok(ElementSize::Pointer),
-      7 => ::std::result::Result::Ok(ElementSize::InlineComposite),
-      n => ::std::result::Result::Err(::capnp::NotInSchema(n)),
+      0 => ::core::result::Result::Ok(ElementSize::Empty),
+      1 => ::core::result::Result::Ok(ElementSize::Bit),
+      2 => ::core::result::Result::Ok(ElementSize::Byte),
+      3 => ::core::result::Result::Ok(ElementSize::TwoBytes),
+      4 => ::core::result::Result::Ok(ElementSize::FourBytes),
+      5 => ::core::result::Result::Ok(ElementSize::EightBytes),
+      6 => ::core::result::Result::Ok(ElementSize::Pointer),
+      7 => ::core::result::Result::Ok(ElementSize::InlineComposite),
+      n => ::core::result::Result::Err(::capnp::NotInSchema(n)),
     }
   }
 }
@@ -6109,7 +6109,7 @@ pub mod capnp_version {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -6173,7 +6173,7 @@ pub mod capnp_version {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -6258,7 +6258,7 @@ pub mod code_generator_request {
 
   impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
     fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a[::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
     }
   }
 
@@ -6338,7 +6338,7 @@ pub mod code_generator_request {
       ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
     }
     fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-      ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+      ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
     }
   }
 
@@ -6461,7 +6461,7 @@ pub mod code_generator_request {
 
     impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
       fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
       }
     }
 
@@ -6531,7 +6531,7 @@ pub mod code_generator_request {
         ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
       }
       fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-        ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+        ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
       }
     }
 
@@ -6629,7 +6629,7 @@ pub mod code_generator_request {
 
       impl <'a,> ::capnp::traits::FromPointerReader<'a> for Reader<'a,>  {
         fn get_from_pointer(reader: &::capnp::private::layout::PointerReader<'a>, default: Option<&'a[::capnp::Word]>) -> ::capnp::Result<Reader<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructReader::new(reader.get_struct(default)?))
         }
       }
 
@@ -6692,7 +6692,7 @@ pub mod code_generator_request {
           ::capnp::traits::FromStructBuilder::new(builder.init_struct(_private::STRUCT_SIZE))
         }
         fn get_from_pointer(builder: ::capnp::private::layout::PointerBuilder<'a>, default: Option<&'a [::capnp::Word]>) -> ::capnp::Result<Builder<'a,>> {
-          ::std::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
+          ::core::result::Result::Ok(::capnp::traits::FromStructBuilder::new(builder.get_struct(_private::STRUCT_SIZE, default)?))
         }
       }
 
