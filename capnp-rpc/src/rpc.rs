@@ -44,6 +44,7 @@ use crate::attach::Attach;
 use crate::{broken, local, queued};
 use crate::local::ResultsDoneHook;
 use crate::task_set::TaskSet;
+use crate::send_ext::SendExt;
 
 pub type QuestionId = u32;
 pub type AnswerId = QuestionId;

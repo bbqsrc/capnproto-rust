@@ -39,10 +39,6 @@ pub mod any_pointer;
 pub mod any_pointer_list;
 pub mod capability;
 pub mod capability_list;
-// #[cfg(not(feature = "std"))]
-mod capability_no_std;
-// #[cfg(feature = "std")]
-// mod capability_std;
 pub mod constant;
 pub mod data;
 pub mod data_list;

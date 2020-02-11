@@ -112,6 +112,7 @@ mod sender_queue;
 mod split;
 mod task_set;
 pub mod twoparty;
+mod send_ext;
 
 pub trait OutgoingMessage {
     fn get_body<'a>(&'a mut self) -> ::capnp::Result<::capnp::any_pointer::Builder<'a>>;
