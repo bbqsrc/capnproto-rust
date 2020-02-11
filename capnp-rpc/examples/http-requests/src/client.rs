@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use capnp_rpc::{RpcSystem, twoparty, rpc_twoparty_capnp};
+use capnp_rpc::{RpcSystem, twoparty, rpc_twoparty_capnp, SendExt};
 use crate::http_capnp::{outgoing_http};
 
 use futures::{AsyncReadExt, FutureExt};

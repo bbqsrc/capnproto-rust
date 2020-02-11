@@ -27,6 +27,7 @@ use capnp_rpc::{RpcSystem, twoparty, rpc_twoparty_capnp};
 use crate::pubsub_capnp::{publisher, subscriber, subscription};
 
 use capnp::capability::Promise;
+use capnp_rpc::SendExt;
 
 use futures::{AsyncReadExt, FutureExt, StreamExt};
 use futures::task::LocalSpawn;

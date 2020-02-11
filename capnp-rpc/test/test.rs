@@ -30,7 +30,7 @@ extern crate futures;
 
 use capnp::Error;
 use capnp::capability::Promise;
-use capnp_rpc::{RpcSystem, rpc_twoparty_capnp, twoparty};
+use capnp_rpc::{RpcSystem, rpc_twoparty_capnp, twoparty, SendExt};
 
 use futures::{Future, FutureExt, TryFutureExt};
 use futures::task::LocalSpawn;

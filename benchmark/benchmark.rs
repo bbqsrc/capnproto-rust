@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 extern crate capnp;
+extern crate core;
 
 use std::{mem, io};
 
@@ -49,10 +50,10 @@ trait TestCase {
     type Response: for<'a> Owned<'a>;
     type Expectation;
 
-    fn setup_request(&self, &mut common::FastRand, <Self::Request as Owned>::Builder) -> Self::Expectation;
-    fn handle_request(&self, <Self::Request as Owned>::Reader, <Self::Response as Owned>::Builder)
+    fn setup_request(&self, _: &mut common::FastRand, _: <Self::Request as Owned>::Builder) -> Self::Expectation;
+    fn handle_request(&self, _: <Self::Request as Owned>::Reader, _: <Self::Response as Owned>::Builder)
                       -> ::capnp::Result<()>;
-    fn check_response(&self, <Self::Response as Owned>::Reader, Self::Expectation) -> ::capnp::Result<()>;
+    fn check_response(&self, _: <Self::Response as Owned>::Reader, _: Self::Expectation) -> ::capnp::Result<()>;
 }
 
 trait Serialize {

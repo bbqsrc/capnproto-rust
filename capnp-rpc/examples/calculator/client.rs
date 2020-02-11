@@ -22,6 +22,7 @@
 use capnp_rpc::{RpcSystem, twoparty, rpc_twoparty_capnp};
 use crate::calculator_capnp::calculator;
 use capnp::capability::Promise;
+use crate::capnp_rpc::SendExt;
 
 use futures::{AsyncReadExt, FutureExt};
 use futures::task::LocalSpawn;

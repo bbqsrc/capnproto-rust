@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 
 
-use test_capnp::{test_all_types, test_defaults, TestEnum};
+use crate::test_capnp::{test_all_types, test_defaults, TestEnum};
 
 pub fn init_test_message(mut builder : test_all_types::Builder) {
     builder.set_void_field(());
@@ -144,7 +144,7 @@ pub fn init_test_message(mut builder : test_all_types::Builder) {
 }
 
 pub trait CheckTestMessage {
-    fn check_test_message(Self);
+    fn check_test_message(_: Self);
 }
 
 macro_rules!

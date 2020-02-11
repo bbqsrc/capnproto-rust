@@ -29,7 +29,7 @@ pub mod addressbook_capnp {
 
 #[cfg(test)]
 mod tests {
-    use addressbook_capnp::{address_book, person};
+    use crate::addressbook_capnp::{address_book, person};
 
     fn populate_address_book(address_book: address_book::Builder) {
         let mut people = address_book.init_people(2);

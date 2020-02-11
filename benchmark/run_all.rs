@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 extern crate capnp;
+extern crate core;
 
 use std::{env, process, time};
 

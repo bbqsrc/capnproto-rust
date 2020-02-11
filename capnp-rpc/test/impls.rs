@@ -25,6 +25,7 @@ use crate::test_capnp::{bootstrap, test_handle, test_interface, test_extends, te
 
 use capnp::Error;
 use capnp::capability::Promise;
+use crate::capnp_rpc::SendExt;
 
 use futures::{FutureExt, TryFutureExt};
 
